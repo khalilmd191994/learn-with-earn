@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Learn with Earn – Small online tasks from home</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f8fc;--card:#fff;--ink:#1b2447;--mute:#56608a;--pri:#2d4de0;--pri-ink:#fff;--ok:#16794a;--amb:#ffc93c;--line:#d6dbef;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1530;--card:#182044;--ink:#eef0fb;--mute:#aab2d8;--pri:#8ea2ff;--pri-ink:#0f1530;--ok:#5fd39a;--line:#2c3763}}
+:root[data-theme="dark"]{--bg:#0f1530;--card:#182044;--ink:#eef0fb;--mute:#aab2d8;--pri:#8ea2ff;--pri-ink:#0f1530;--ok:#5fd39a;--line:#2c3763}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:19px/1.6 Lexend,Verdana,system-ui,sans-serif}
+:focus-visible{outline:3px solid var(--amb);outline-offset:3px}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px 60px}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 0;gap:12px}
+.logo{font-weight:600;font-size:1.3rem}
+.pill{background:var(--card);border:2px solid var(--line);border-radius:999px;padding:6px 16px;font-weight:600}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin:10px 0 14px}
+h2{margin:32px 0 14px;font-size:1.5rem}
+p{margin:0 0 14px}.mute{color:var(--mute)}
+.btn{background:var(--pri);color:var(--pri-ink);border:0;border-radius:14px;padding:16px 28px;font:inherit;font-weight:600;cursor:pointer;min-height:56px}
+.btn.alt{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:22px;margin-bottom:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.big{font-size:2rem;font-weight:600}
+.task{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.task h3{margin:0 0 2px;font-size:1.15rem}
+.tag{display:inline-block;background:var(--amb);color:#1b2447;border-radius:8px;padding:2px 10px;font-size:.85rem;font-weight:600;margin-right:6px}
+.done{color:var(--ok);font-weight:600}
+label{display:block;margin:10px 0 6px;font-weight:600}
+input[type=text],textarea{width:100%;font:inherit;padding:14px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.opt{display:flex;gap:12px;align-items:center;padding:12px 14px;border:2px solid var(--line);border-radius:12px;margin-bottom:8px;cursor:pointer;font-weight:400}
+.opt input{width:24px;height:24px}
+.err{color:#c62828;font-weight:600;min-height:1.4em}
+table{width:100%;border-collapse:collapse}td,th{padding:10px 6px;border-bottom:1px solid var(--line);text-align:left}
+.note{background:var(--card);border-left:6px solid var(--amb);padding:14px 18px;border-radius:10px;font-size:.95rem}
+.fb{border-left:6px solid var(--ok);padding:12px 16px;background:var(--bg);border-radius:10px;margin:14px 0;font-weight:600}.fb.no{border-color:var(--amb)}.qo{display:block;width:100%;text-align:left;margin-bottom:10px}.hero{background:linear-gradient(135deg,#2d4de0,#6a3de0);color:#fff;border-radius:24px;padding:34px 26px;margin-bottom:18px}.hero h1{margin-top:0}.hero .btn{background:#ffc93c;color:#1b2447}.hero .btn.alt{background:transparent;color:#fff;border:2px solid #fff}.acts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:8px}.feed .f{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}.feed .f:last-child{border:0}.back{background:none;border:0;color:var(--pri);font:inherit;font-weight:600;cursor:pointer;padding:8px 0;margin:0 14px 6px 0}.hide{display:none}
+@media (max-width:640px){.grid3{grid-template-columns:1fr}body{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="logo">Learn with Earn</div><div class="pill hide" id="wpill"></div></div>
+
+<main>
+<section id="home">
+  <div class="hero">
+    <h1>Part-time online tasks you can do from home</h1>
+    <p>Short, simple tasks on your phone or computer. Work when you like. Free to join, no experience needed.</p>
+    <button class="btn" id="join">Sign up free</button> <button class="btn alt" id="login">Log in</button>
+  </div>
+  <div class="acts"><button class="btn" id="a1">Start tasks</button><button class="btn alt" id="a2">Check my points</button></div>
+  <h2>Recent member activity</h2>
+  <div class="card feed" id="feed" aria-live="off"></div>
+  <div class="note">Sample activity for this demo only, using the same task rates as the site. Replace it with real member activity at launch, and never show made-up earnings to real visitors.</div>
+  <div class="grid3">
+    <div class="card"><div class="big">Free</div>No fee to register. We never ask you to pay to earn or withdraw.</div>
+    <div class="card"><div class="big">1 to 15 min</div>Each task is short, with clear steps and an example.</div>
+    <div class="card"><div class="big">100 pts = $1</div>Every task shows its points. Cash out at 500 points ($5).</div>
+  </div>
+  <h2>How it works</h2>
+  <div class="card"><b>1. Register</b> with your name.<br><b>2. Pick a task</b> you like and follow the steps.<br><b>3. Submit</b> it. Points go to your wallet after checking.<br><b>4. Withdraw</b> when you reach 500 points.</div>
+  <div class="note">Typical earnings for tasks like these are around $5 to $12 per hour, depending on the task and how fast you work. Your actual earnings will vary.</div>
+  <div class="card" style="text-align:center;margin-top:14px"><div class="mute">Live users</div><div class="big" id="live" aria-live="off">0</div><div class="mute" style="font-size:.85rem">Demo numbers only, not real members</div>
+  <p class="mute" style="font-size:.85rem;margin:10px 0 0">Demo dekhne ka tumhara kaam isse ruka nahi hai. Counter abhi bhi waise hi chal raha hai, har 3 second mein 5,000 se 15,000 ke beech badal raha hai, aur neeche ki chhoti line sirf demo ko label karti hai.</p></div>
+</section>
+
+<section id="reg" class="hide">
+  <button class="back" data-b>← Back to home</button>
+  <h1>Create your free account</h1>
+  <div class="card">
+    <label for="nm">Your first name</label>
+    <input type="text" id="nm" maxlength="30" autocomplete="given-name">
+    <label for="em">Your email</label>
+    <input type="text" id="em" maxlength="80" autocomplete="email" inputmode="email">
+    <p class="err" id="nmerr" role="alert"></p>
+    <button class="btn" id="go">Start</button>
+  </div>
+</section>
+
+<section id="log" class="hide">
+  <button class="back" data-b>← Back to home</button>
+  <h1>Log in</h1>
+  <div class="card">
+    <label for="le">Your email</label>
+    <input type="text" id="le" maxlength="80" autocomplete="email" inputmode="email">
+    <p class="err" id="lerr" role="alert"></p>
+    <button class="btn" id="lgo">Log in</button>
+  </div>
+</section>
+
+<section id="app" class="hide">
+  <button class="back" data-b>← Home</button><button class="back" id="out">Log out</button>
+  <h1 id="hi"></h1>
+  <div class="grid3">
+    <div class="card"><div class="mute">Wallet</div><div class="big" id="pts">0</div>points</div>
+    <div class="card"><div class="mute">Value</div><div class="big" id="usd">$0.00</div>at 100 pts = $1</div>
+    <div class="card"><div class="mute">Tasks done</div><div class="big" id="cnt">0</div></div>
+  </div>
+  <p><button class="btn alt" id="wd">Withdraw</button> <span class="mute" id="wdmsg"></span></p>
+  <div class="card hide" id="sup" role="status"></div>
+
+  <h2>Question challenge</h2>
+  <div class="card" id="qbox"></div>
+
+  <h2 id="tasks-h">Available tasks</h2>
+  <div id="tasks"></div>
+
+  <div id="work" class="hide card"></div>
+
+  <h2>Earnings history</h2>
+  <div class="card" id="hist"></div>
+  <div class="note">This is a demo. Points are stored only in your browser and no real money moves. Payments need real paying clients and a payment provider.</div>
+</section>
+</main>
+<div class="card" style="text-align:center;margin-top:28px"><p id="qt" style="margin:0;font-weight:600" aria-live="off"></p></div>
+</div>
+
+<script>
+var RATE=100, MIN=500;
+var TASKS=[
+{id:"t1",title:"Quick opinion survey",mins:5,pts:30,lvl:"Easy",intro:"Answer 3 questions about daily shopping. There are no wrong answers.",f:[
+ {t:"r",q:"Where do you buy groceries most often?",o:["Supermarket","Local market","Online"]},
+ {t:"r",q:"What matters most when you choose a product?",o:["Price","Quality","Brand"]},
+ {t:"r",q:"How often do you shop online?",o:["Never","Sometimes","Often"]}]},
+{id:"t2",title:"Pick the right photo label",mins:1,pts:10,lvl:"Easy",intro:"Look at the picture and choose the correct label.",f:[
+ {t:"r",q:"🐱 What animal is this?",o:["Cat","Dog","Bird"]}]},
+{id:"t3",title:"Find the spelling mistake",mins:2,pts:15,lvl:"Easy",intro:"Read the sentence and choose the word spelled correctly.",f:[
+ {t:"r",q:"\"I will recieve the parcel tomorrow.\" Correct spelling:",o:["receive","receeve","recive"]}]},
+{id:"t4",title:"Type the receipt total",mins:3,pts:20,lvl:"Easy",intro:"Read the receipt and type the total amount.",f:[
+ {t:"i",q:"Bread $2.50 + Milk $1.80 + Eggs $3.20. Total in dollars:",ph:"for example 7.50"}]},
+{id:"t5",title:"Website feedback",mins:12,pts:60,lvl:"Medium",intro:"Open the home page above and read it for 5 minutes. Then tell us what was clear and what was confusing.",f:[
+ {t:"a",q:"Write at least 30 characters of feedback:",min:30}]}
+];
+var S={name:"",email:"",pts:0,done:[],log:[],qn:0,qok:0};
+function load(){try{var v=localStorage.getItem("et");if(v){S=JSON.parse(v);S.qn=S.qn||0;S.qok=S.qok||0}}catch(e){}}
+function save(){try{localStorage.setItem("et",JSON.stringify(S))}catch(e){}}
+function $(i){return document.getElementById(i)}
+function show(id){["home","reg","log","app"].forEach(function(s){$(s).classList.toggle("hide",s!==id)});window.scrollTo(0,0)}
+function usd(p){return "$"+(p/RATE).toFixed(2)}
+function draw(){
+  $("hi").textContent="Hello, "+S.name;
+  $("wpill").classList.remove("hide");$("wpill").textContent=S.pts+" pts";
+  $("pts").textContent=S.pts;$("usd").textContent=usd(S.pts);$("cnt").textContent=S.done.length;
+  $("wdmsg").textContent=S.pts<MIN?("Reach "+MIN+" points to withdraw ("+(MIN-S.pts)+" to go)"):"You can withdraw now.";
+  var box=$("tasks");box.innerHTML="";
+  TASKS.forEach(function(t){
+    var d=document.createElement("div");d.className="card task";
+    var l=document.createElement("div");
+    l.innerHTML='<h3></h3><span class="tag"></span><span class="mute"></span>';
+    l.querySelector("h3").textContent=t.title;
+    l.querySelector(".tag").textContent=t.lvl;
+    l.querySelector(".mute").textContent=t.mins+" min · "+t.pts+" pts ("+usd(t.pts)+")";
+    d.appendChild(l);
+    if(S.done.indexOf(t.id)>-1){var s=document.createElement("span");s.className="done";s.textContent="Done ✓";d.appendChild(s)}
+    else{var b=document.createElement("button");b.className="btn";b.textContent="Start";b.onclick=function(){open(t)};d.appendChild(b)}
+    box.appendChild(d);
+  });
+  var h=$("hist");
+  if(!S.log.length){h.textContent="No tasks yet. Pick one above to begin."}
+  else{var tb=document.createElement("table");S.log.slice().reverse().forEach(function(r){var tr=tb.insertRow();tr.insertCell().textContent=r[0];tr.insertCell().textContent="+"+r[1]+" pts"});h.innerHTML="";h.appendChild(tb)}
+}
+function open(t){
+  var w=$("work");w.classList.remove("hide");w.innerHTML="";
+  var h=document.createElement("h2");h.textContent=t.title;h.style.marginTop="0";w.appendChild(h);
+  var p=document.createElement("p");p.className="mute";p.textContent=t.intro;w.appendChild(p);
+  t.f.forEach(function(f,i){
+    var b=document.createElement("div");
+    var q=document.createElement("label");q.textContent=f.q;q.id="q"+i;b.appendChild(q);
+    if(f.t==="r"){f.o.forEach(function(o){var lb=document.createElement("label");lb.className="opt";var r=document.createElement("input");r.type="radio";r.name="f"+i;r.value=o;lb.appendChild(r);lb.appendChild(document.createTextNode(o));b.appendChild(lb)})}
+    else if(f.t==="i"){var x=document.createElement("input");x.type="text";x.name="f"+i;x.placeholder=f.ph||"";x.setAttribute("aria-labelledby","q"+i);b.appendChild(x)}
+    else{var a=document.createElement("textarea");a.rows=5;a.name="f"+i;a.setAttribute("aria-labelledby","q"+i);b.appendChild(a)}
+    w.appendChild(b);
+  });
+  var e=document.createElement("p");e.className="err";e.setAttribute("role","alert");w.appendChild(e);
+  var sb=document.createElement("button");sb.className="btn";sb.textContent="Submit task";
+  sb.onclick=function(){
+    for(var i=0;i<t.f.length;i++){var f=t.f[i],v="";
+      if(f.t==="r"){var c=w.querySelector('input[name="f'+i+'"]:checked');v=c?c.value:""}
+      else{v=w.querySelector('[name="f'+i+'"]').value.trim()}
+      if(!v){e.textContent="Please answer every question before submitting.";return}
+      if(f.min&&v.length<f.min){e.textContent="Please write at least "+f.min+" characters.";return}
+    }
+    S.pts+=t.pts;S.done.push(t.id);S.log.push([t.title,t.pts]);save();
+    w.classList.add("hide");draw();
+    $("wdmsg").textContent="Submitted! "+t.pts+" points added.";
+  };
+  w.appendChild(sb);
+  var cb=document.createElement("button");cb.className="btn alt";cb.textContent="Cancel";cb.style.marginLeft="10px";cb.onclick=function(){w.classList.add("hide")};w.appendChild(cb);
+  w.scrollIntoView({behavior:"smooth"});
+}
+
+$("go").onclick=function(){var n=$("nm").value.trim(),m=$("em").value.trim();if(!n){$("nmerr").textContent="Please enter your first name.";return}if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)){$("nmerr").textContent="Please enter a valid email address.";return}if(S.email&&S.email.toLowerCase()!==m.toLowerCase()){S={name:"",email:"",pts:0,done:[],log:[],qn:0,qok:0}}S.name=n;S.email=m;S.in=true;save();show("app");draw();qHome();updHome()};
+$("wd").onclick=function(){var s=$("sup");s.classList.remove("hide");s.innerHTML="";var h=document.createElement("b");h.textContent=S.pts>=MIN?"You can withdraw. Contact our support team to get paid:":"Withdrawals open at "+MIN+" points ("+usd(MIN)+"). You have "+S.pts+" points. Questions? Our support team is happy to help:";s.appendChild(h);var u=document.createElement("ul");["Email: support@learnwithearn.example","Phone: +1-800-555-0100 (Mon to Fri, 9am to 6pm)","These are sample details. Replace them with your own."].forEach(function(x){var li=document.createElement("li");li.textContent=x;u.appendChild(li)});s.appendChild(u);s.scrollIntoView({behavior:"smooth"})};
+
+var QB=[
+["How many days are in a week?",["5","6","7","8"],2],
+["Which planet do we live on?",["Mars","Earth","Venus"],1],
+["Which is the largest ocean?",["Atlantic","Indian","Pacific"],2],
+["What is 12 + 15?",["25","27","29"],1],
+["Which one is a fruit?",["Potato","Mango","Onion"],1],
+["How many minutes are in one hour?",["30","60","100"],1],
+["Which season is usually the coldest?",["Summer","Winter","Spring"],1],
+["What do bees make?",["Honey","Milk","Butter"],0],
+["In which direction does the sun rise?",["East","West","North"],0],
+["What is 100 minus 35?",["55","65","75"],1],
+["Which animal gives us wool?",["Sheep","Cow","Horse"],0],
+["How many months are in a year?",["10","12","14"],1],
+["What is the capital of India?",["Mumbai","New Delhi","Kolkata"],1],
+["Which of these is a vegetable?",["Carrot","Apple","Banana"],0],
+["What do we use to tell the time?",["Compass","Clock","Ruler"],1],
+["What colour is a ripe banana?",["Yellow","Blue","Purple"],0],
+["How many sides does a triangle have?",["2","3","4"],1],
+["Which is the fastest way to travel far?",["Walking","Cycling","Aeroplane"],2],
+["What is half of 50?",["20","25","30"],1],
+["Which one do we use to write?",["Pen","Spoon","Shoe"],0],
+["Which skill are you proud of?",["Cooking","Listening","Fixing things","Learning new things"],-1],
+["What has life taught you that younger people can learn from?",["Patience","Hard work","Kindness","Staying curious"],-1],
+["Which new thing would you like to try this year?",["A new app","A new language","A hobby","Meeting new people"],-1],
+["How do you feel about learning on the internet?",["Excited","A bit nervous","Curious","Confident"],-1],
+["Which one describes your best quality?",["Reliable","Friendly","Wise","Hardworking"],-1],
+["What makes you feel most accomplished?",["Finishing a task","Helping someone","Learning something","Earning my own money"],-1],
+["Which time of day do you focus best?",["Morning","Afternoon","Evening","Night"],-1],
+["What is one small goal for this week?",["Answer 6 questions","Learn a new skill","Earn 100 points","Take a daily walk"],-1],
+["How did you do with your last new challenge?",["I finished it","I am still learning","I want to try again","I loved it"],-1],
+["What helps you stay calm with something new?",["Going slowly","Asking for help","Practice","A deep breath"],-1],
+["Which is your strongest habit?",["Being on time","Being honest","Being patient","Being organised"],-1],
+["Would you like to try a harder task next?",["Yes","Maybe later","Show me an easy one first"],-1]];
+var PR=["Correct! You are sharper than you think.","Well done! Every right answer builds your confidence.","Excellent! Experience really shows.","That's right! You are doing great, keep going.","Perfect! You can handle more than you believe.","Brilliant! Learning never stops and you are proof.","Spot on! You are getting better with every step."];
+var NO=["Good try! Mistakes are how we learn.","Nearly there! You will get the next one.","No worries, trying is what counts."];
+var RF=["Thank you for sharing! Your experience is valuable.","Great answer! Knowing yourself is a real strength.","Lovely! You are capable of more than you think.","Wonderful! Every step forward counts."];
+var QP=4,order=[];
+function rnd(a){return a[Math.floor(Math.random()*a.length)]}
+function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function mk(t,f,c){var b=document.createElement("button");b.className="btn"+(c?" "+c:"");b.textContent=t;b.onclick=f;return b}
+function addPts(n){S.pts+=n;var l=S.log[S.log.length-1];if(l&&l[0]==="Question challenge")l[1]+=n;else S.log.push(["Question challenge",n])}
+function qHome(msg){
+  var b=$("qbox");b.innerHTML="";
+  var p=document.createElement("p");
+  p.textContent=(msg?msg+" ":"")+QB.length+" questions, shuffled every time. Earn "+QP+" points for each correct answer. The 'about you' questions have no wrong answers.";
+  b.appendChild(p);b.appendChild(mk(S.qn?"Continue":"Start questions",nextQ));
+}
+function nextQ(){
+  if(!order.length)order=shuf(QB.map(function(x,i){return i}));
+  var q=QB[order.pop()],b=$("qbox");b.innerHTML="";
+  var h=document.createElement("p");h.className="mute";h.textContent="Question "+(S.qn+1);b.appendChild(h);
+  var t=document.createElement("h3");t.style.margin="0 0 14px";t.textContent=q[0];b.appendChild(t);
+  var fb=document.createElement("div"),nav=document.createElement("div");
+  shuf(q[1].map(function(x,i){return i})).forEach(function(i){
+    var o=mk(q[1][i],function(){
+      var ok=q[2]===-1||i===q[2];
+      b.querySelectorAll(".qo").forEach(function(x){x.disabled=true});
+      S.qn++;
+      if(ok){S.qok++;addPts(QP)}
+      save();draw();
+      fb.className="fb"+(ok?"":" no");
+      fb.textContent=ok?rnd(q[2]===-1?RF:PR)+" +"+QP+" points":rnd(NO)+" The correct answer is "+q[1][q[2]]+".";
+      if(S.qn%6===0){var m=document.createElement("p");m.textContent="You have answered "+S.qn+" questions. Keep going or take a break, it is up to you.";fb.appendChild(m)}
+      nav.appendChild(mk("Next question",nextQ));
+      nav.appendChild(mk("Quit",function(){qHome("Good session! You have answered "+S.qn+" questions so far.")},"alt"));
+      nav.lastChild.style.marginLeft="10px";
+    },"alt qo");
+    b.appendChild(o);
+  });
+  b.appendChild(fb);b.appendChild(nav);
+}
+
+function toApp(id){show("app");draw();if(!$("qbox").firstChild)qHome();var e=$(id);if(e)e.scrollIntoView({behavior:"smooth"})}
+function updHome(){
+  $("login").classList.toggle("hide",!!S.in);
+  $("join").textContent=S.in?"Open my account":"Sign up free";
+  $("wpill").classList.toggle("hide",!S.in);
+}
+$("join").onclick=function(){if(S.in)toApp();else show("reg")};
+$("login").onclick=function(){show("log")};
+$("a1").onclick=function(){if(S.in)toApp("tasks");else show("reg")};
+$("a2").onclick=function(){if(S.in)toApp("pts");else show("log")};
+document.querySelectorAll("[data-b]").forEach(function(b){b.onclick=function(){show("home");updHome()}});
+$("out").onclick=function(){S.in=false;save();show("home");updHome()};
+$("lgo").onclick=function(){var m=$("le").value.trim().toLowerCase();
+  if(S.email&&m===S.email.toLowerCase()){S.in=true;save();toApp();updHome()}
+  else{$("lerr").textContent="No account with this email was found in this browser. Please sign up first."}};
+var FN=["John","Emma","Michael","Sarah","David","Linda","James","Mary","Robert","Susan","William","Karen","Thomas","Nancy","Daniel","Laura","George","Helen","Peter","Carol"],FD=[];
+function mkf(ago){var t=rnd(TASKS);return{n:rnd(FN),t:t.title,p:t.pts,m:Math.max(1,t.mins+Math.floor(Math.random()*3)-1),a:ago}}
+function drawFeed(){
+  var mx=Math.max.apply(null,FD.map(function(x){return x.p})),b=$("feed");b.innerHTML="";
+  FD.forEach(function(x){
+    var r=document.createElement("div");r.className="f";
+    var l=document.createElement("span"),t=document.createElement("span");
+    l.textContent=x.n+" earned "+x.p+" pts in "+x.m+" min · "+x.t;
+    t.className="mute";t.textContent=(x.p===mx?"Top · ":"")+(x.a?x.a+" min ago":"just now");
+    r.appendChild(l);r.appendChild(t);b.appendChild(r);
+  });
+}
+function newFD(){return shuf(FN).slice(0,4).map(function(n){var x=mkf(Math.floor(Math.random()*10));x.n=n;return x})}
+FD=newFD();drawFeed();
+setInterval(function(){FD=newFD();drawFeed()},8000);
+var QT=["Every expert was once a beginner.","Small steps every day lead to big results.","It is never too late to learn something new.","Your experience is your superpower.","Learning keeps the mind young and the spirit strong.","Progress, not perfection.","Patience and practice turn effort into skill.","Every question you answer makes you a little wiser.","Believe in yourself. You have come this far.","Consistency beats speed.","Today is a good day to learn something new.","You are capable of more than you think."],qi=-1;
+function nextQt(){var i;do{i=Math.floor(Math.random()*QT.length)}while(i===qi);qi=i;$("qt").textContent=QT[i]}
+nextQt();setInterval(nextQt,20000);
+var LV=9840;
+function tickLive(){LV+=Math.floor(Math.random()*801)-400;LV=Math.max(5000,Math.min(15000,LV));$("live").textContent=LV.toLocaleString("en-US")}
+tickLive();setInterval(tickLive,3000);
+load();
+if(S.name&&S.in){draw();qHome()}updHome();
+</script>
+</body>
+</html>
